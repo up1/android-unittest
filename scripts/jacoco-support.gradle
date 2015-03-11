@@ -1,0 +1,25 @@
+jacoco {
+    toolVersion = "0.7.0.201403182114"
+}
+
+ext.coverageSourceDirs = [
+        '../app/src/main/java',
+        '../app/build/source/apt/debug',
+        '../app/build/generated/source/db',
+        '../app/build/generated/source/buildConfig/debug',
+        '../app/build/generated/source/r/debug']
+
+jacocoTestReport {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    // class R is used, but usage will not be covered, so ignore this class from report
+    classDirectories = fileTree(dir: '../app/build/intermediates/classes/debug', excludes: ['com/example/somkiat/myapplication/R*.class','android/support/v7/appcompat/*.class'])
+    additionalSourceDirs = files(coverageSourceDirs)
+    executionData = files('build/jacoco/test.exec')
+}
+
+// just clean up dashboard, following reports are not of interest
+test.reports.html.enabled = true
+test.reports.junitXml.enabled = false

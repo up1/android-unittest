@@ -20,3 +20,13 @@ allprojects {
         jcenter()
     }
 }
+
+apply plugin: 'java'
+apply plugin: 'build-dashboard'
+
+buildDashboard {
+    reports.html.destination = "build/"
+}
+
+test.reports.html.enabled = false
+test.reports.junitXml.enabled = false
